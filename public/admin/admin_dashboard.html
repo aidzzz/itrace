@@ -1,0 +1,825 @@
+<!--
+=========================================================
+ITRACE APP
+=========================================================
+Coded by Adrian Neil Asence
+=========================================================
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script type="text/javascript">
+  </script>
+  <meta charset="utf-8" />
+  
+  <link rel="icon" type="image/png" href="../assets/img/icons/icon-72x72.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    ITRACE
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+  <meta content='yes' name='apple-mobile-web-app-capable'/>
+  <meta content='yes' name='mobile-web-app-capable'/>
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <!-- CSS Files -->
+  <link href="../assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="../assets/css/main.css" rel="stylesheet" />
+  
+  <link rel="manifest" href="../manifest.json">
+
+  <!-- ios support -->
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/icons/icon-96x96.png">
+  <meta name="apple-mobile-web-app-status-bar" content="#6c0e7f">
+  <meta name="theme-color" content="#9c27b0">
+
+
+</head>
+
+<body class="" oncontextmenu="return false">
+  <div class="wrapper ">
+    <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+      <!--
+        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+        Tip 2: you can also add an image using data-image tag
+    -->
+      <div class="logo"><a href="" class="simple-text logo-normal" onclick="menutoggler()">
+          ITRACE
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="admin_dashboard.html">
+              <i class="material-icons">dashboard</i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <!-- <li class="nav-item ">
+            <a class="nav-link" href="admin_notifications.html">
+              <i class="material-icons">notifications</i>
+              <p>Activity</p>
+            </a>
+          </li> --> 
+          <li class="nav-item ">
+            <a class="nav-link" href="admin_traces.html">
+              <i class="material-icons">content_paste</i>
+              <p>Traces</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="admin_maps.html">
+              <i class="material-icons">location_ons</i>
+              <p>Check Area</p>
+            </a>
+          </li>
+          
+          <li class="nav-item ">
+            <a class="nav-link" href="admin_user.html">
+              <i class="material-icons">person</i>
+              <p>Account</p>
+            </a>
+          </li>
+          
+          <li class="nav-item ">
+            <a class="nav-link" href="#" onclick="swalfire('log_out')">
+              <i class="material-icons">logout</i>
+              <p>Log out</p>
+            </a>
+          </li>
+        </ul>
+
+        
+      </div>
+    </div>
+    <div class="main-panel">
+      <!-- Navbar -->
+      
+      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <a class="navbar-brand" href="javascript:void(0);">Dashboard</a>
+          </div>
+          <button id="menutogglerbtn" class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end">
+            <!-- <form class="navbar-form">
+              <div class="input-group no-border">
+                <input type="text" value="" class="form-control" placeholder="Search...">
+                <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                  <i class="material-icons">search</i>
+                  <div class="ripple-container"></div>
+                </button>
+              </div>
+            </form> -->
+            <ul class="navbar-nav">
+              
+            </ul>
+          </div>
+        </div>
+        <hr/>
+      </nav>
+      <!-- End Navbar -->
+
+      <!-- main content -->
+      <div class="content">
+        <div class="container-fluid">
+          
+<!-- ///////////////////////////////////////MODAL///////////////////////////////////////////// -->
+
+<div class="modal fade" id="add_user_modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add User </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="create_user_form">
+          <div class="row">
+            <div class="col-md-12">              
+              <div class="form-group" id="create_username_div">
+                <label class="bmd-label-floating">Username</label>
+                <input type="text" class="form-control " id="create_username" autocomplete="off">
+               
+              </div>       
+              <div class="form-group mb-2">
+                <label class="bmd-label-floating">First Name</label>
+                <input type="text" class="form-control" id="create_firstname" autocomplete="off">
+              </div>
+            </div>
+            <div class="col-md-12 mb-2">
+              <div class="form-group">
+                <label class="bmd-label-floating">Last Name</label>
+                <input type="text" class="form-control" id="create_lastname" autocomplete="off">
+              </div>
+            </div>            
+            <div class="col-md-12 mb-2">
+              <div class="form-group">
+                <label class="bmd-label-floating">Contact</label>
+                <input type="number" class="form-control" id="create_contact" autocomplete="off">
+              </div>
+            </div>
+            <div class="col-md-12 mb-2">
+              <div class="form-group">
+                <label class="bmd-label-floating">Email address</label>
+                <input type="email" class="form-control" id="create_email" autocomplete="off">
+              </div>
+            </div>
+            <div class="col-md-12 ">
+              <div class="form-group">
+                <label class="bmd-label-floating">Adress</label>
+                <input type="text" class="form-control" id="create_address" autocomplete="off">
+              </div>
+            </div>
+
+            <div class="col-md-12 ">
+              <div class="form-group">
+                <label class="bmd-label-floating">Type</label>
+                <select class="form-control" data-style="btn btn-link" id="create_type">
+                  <option value="tracer">Tracer</option>
+                  <option value="administrator">Administrator</option>
+                </select>
+              </div>
+            </div>
+          </div>                
+          <div class="clearfix"></div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="add_to_user_btn">Add User</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- //////////////////////////////////////////////////////////////////// -->
+
+
+          <div class="row">
+
+                      
+            <div class="col-md-4">
+              <div class="card card-chart">
+                <div class="card-header card-header-success" data-header-animation="true">
+                  <div class="ct-chart" id="recoveryChartdiv"></div>
+                </div>
+                <div class="card-body">
+                  <div class="card-actions"> 
+                    <a href="" class="btn btn-info btn-link" rel="tooltip" data-placement="bottom" title="Refresh">
+                      <i class="material-icons">refresh</i>
+                    </a>
+                    <a href="admin_recovery.html" class="btn btn-default btn-link" rel="tooltip" data-placement="bottom" title="See more">
+                      <i class="material-icons">visibility</i>
+                    </a>
+                  </div>
+                  <h4 class="card-title">Recovery Cases</h4>
+                  <p class="card-category" id="r_cases_p">
+                    
+                  </p>
+                </div>
+                <div class="card-footer">
+                  <div class="stats" id="updaterelativetime_recovery">
+                    <i class="material-icons">access_time</i> updated 
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              
+              <div class="card card-chart">
+                <div class="card-header card-header-warning" data-header-animation="true">
+                  <div class="ct-chart" id="infectedChartdiv"></div>
+                </div>
+                <div class="card-body">
+                  <div class="card-actions"> 
+                    <a href="" class="btn btn-info btn-link">
+                      <i class="material-icons">refresh</i>
+                    </a>
+                    <a href="admin_infected.html" class="btn btn-default btn-link">
+                      <i class="material-icons">visibility</i>
+                    </a>
+                  </div>
+                  <h4 class="card-title">Daily Cases</h4>
+                  <p class="card-category" id="i_cases_p">
+                   
+                  </p>
+                </div>
+                <div class="card-footer">
+                  <div class="stats" id="updaterelativetime_infected">
+                    <i class="material-icons">access_time</i> updated 
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-md-4">
+              <div class="card card-chart">
+                <div class="card-header card-header-danger" data-header-animation="true">
+                  <div class="ct-chart" id="deathChartdiv"></div>
+                </div>
+                <div class="card-body">
+                  <div class="card-actions"> 
+                    <a href="" class="btn btn-info btn-link" rel="tooltip" data-placement="bottom" title="Refresh">
+                      <i class="material-icons">refresh</i>
+                    </a>
+                    <a href="admin_death.html" class="btn btn-default btn-link" rel="tooltip" data-placement="bottom" title="See more">
+                      <i class="material-icons">visibility</i>
+                    </a>
+                  </div>
+                  
+                  <h4 class="card-title">Death Rates</h4>
+                  <p class="card-category" id="d_cases_p">
+                     
+                  </p>
+                </div>
+                <div class="card-footer">
+                  <div class="stats" id="updaterelativetime_death">
+                    <i class="material-icons">access_time</i> updated 
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-lg-6 col-md-12">
+              <div class="card">
+                <div class="card-header card-header-tabs card-header-primary">
+                  <div class="nav-tabs-navigation">
+                    <div class="nav-tabs-wrapper">
+                      <span class="nav-tabs-title">Activity:</span>
+                      <ul class="nav nav-tabs" data-tabs="tabs">
+                        <li class="nav-item">
+                          <a class="nav-link active" href="#new_traces_tab" data-toggle="tab">
+                            <i class="material-icons">verified</i> New
+                            <div class="ripple-container"></div>
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#unknown_traces_tab" data-toggle="tab">
+                            <i class="material-icons">help_outline</i> Unknown
+                            <div class="ripple-container"></div>
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#isolated_traces_tab" data-toggle="tab">
+                            <i class="material-icons">close</i> Isolated
+                            <div class="ripple-container"></div>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-body">
+                  <div class="tab-content">
+                    <div class="tab-pane active" id="new_traces_tab">
+                      <table class="table">
+                        <tbody id="new_traces_list">
+                         
+                          
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="tab-pane" id="unknown_traces_tab">
+                      <table class="table">
+                        <tbody id="unknown_traces_list">
+
+                        
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="tab-pane" id="isolated_traces_tab">
+                      <table class="table">
+                        <tbody id="isolated_traces_list">
+       
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+              <div class="card">
+                <div class="card-header card-header-warning">
+                  <button class="btn btn-primary" style="float: right;" id="add_user_modal" data-toggle="modal" data-target="#add_user_modal">Add User</button>
+                  <h4 class="card-title">Tracers</h4>
+                  <p class="card-category">details of tracers</p>                  
+                </div>
+                <div class="card-body table-responsive">
+                  <table class="table table-hover">
+                    <thead class="text-warning">
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Trace</th>
+                      <th>Area</th>
+                    </thead>
+                    <tbody id="tracer_tbody">
+                    
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- main content  -->
+
+
+    </div>
+  </div>
+
+  <!-- customizer sidebar -->
+  
+
+  
+  <!--   Core JS Files   -->
+  <script src="../assets/js/core/jquery.min.js"></script>
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap-material-design.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!-- Plugin for the momentJs  -->
+  <script src="../assets/js/plugins/moment.min.js"></script>
+  <!--  Plugin for Sweet Alert -->
+  <script src="../assets/js/plugins/sweetalert2.js"></script>
+  <!-- Forms Validations Plugin -->
+  <script src="../assets/js/plugins/jquery.validate.min.js"></script>
+  <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+  <script src="../assets/js/plugins/jquery.bootstrap-wizard.js"></script>
+  <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+  <script src="../assets/js/plugins/bootstrap-selectpicker.js"></script>
+  <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+  <script src="../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
+  <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
+  <script src="../assets/js/plugins/jquery.dataTables.min.js"></script>
+  <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+  <script src="../assets/js/plugins/bootstrap-tagsinput.js"></script>
+  <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+  <script src="../assets/js/plugins/jasny-bootstrap.min.js"></script>
+  <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+  <script src="../assets/js/plugins/fullcalendar.min.js"></script>
+  <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+  <script src="../assets/js/plugins/jquery-jvectormap.js"></script>
+  <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+  <script src="../assets/js/plugins/nouislider.min.js"></script>
+  <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+  <!-- Library for adding dinamically elements -->
+  <script src="../assets/js/plugins/arrive.min.js"></script>
+  <!--  Google Maps Plugin    -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCL0GSMCN9vKb6AUulcxHsLEj3JQHVJS9M"></script>
+  <!-- Chartist JS -->
+  <script src="../assets/js/plugins/chartist.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../assets/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.0.2/sha.js"></script>
+  <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+  <script src="../assets/js/main.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-firestore.js"></script>
+  <script src="../assets/js/app.js"></script>
+  <script src="../assets/js/swalfire.js"></script>
+  <script src="../assets/js/fstore.js"></script>
+  <script src="../assets/js/session.js"></script>
+  <script src="../assets/js/charts.js"></script>
+   
+  <script>
+    $(document).ready(function() {
+       
+        let r_case = [], i_case = [], d_case = [], r_case_new = [], i_case_new = [], d_case_new = []
+        
+
+        if(screen.width <= 640){
+            swalfire('admin_resolution')
+        }else{
+            // window.location.href="admin_dashboard.html"
+        }        
+
+        chart.recoveryChart();
+        chart.infectedChart();
+        chart.deathChart();
+        $('#create_username').keyup(function(){        
+          username_check($('#create_username').val());
+        })
+        $('#add_to_user_btn').click(function(){
+          $('#add_to_user_btn').attr('disabled', 'true');          
+          if($('#create_username').val() != ''){
+            create_user($('#create_username').val());
+          }else{
+            swalfire('username_field_empty')
+            $('#add_to_user_btn').removeAttr('disabled');   
+          }
+          
+        })
+        let today = new Date().getTime();
+      db.collection("trace_record").orderBy('time_added', 'desc').limit(1).onSnapshot((snapshot) => {
+        snapshot.docChanges().forEach(data => { 
+          timediff(data.doc.data(), today)          
+        })
+      })
+      let new_traces_list = document.querySelector('#new_traces_list')
+      let unknown_traces_list = document.querySelector('#unknown_traces_list')
+      let isolated_traces_list = document.querySelector('#isolated_traces_list')
+      // let i;
+      db.collection("trace_record").orderBy('time_added', 'desc').onSnapshot((snapshot) => {
+        snapshot.docChanges().forEach(data => { 
+          // i++
+          const convertfireBaseTime = new Date(
+              data.doc.data().time_added.seconds * 1000 + data.doc.data().time_added.nanoseconds / 1000000,
+          );
+          function timeConverter(convertfireBaseTime){
+            var a = new Date(convertfireBaseTime);
+            var abbrmonths = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+            var fullmonths = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            var year = a.getFullYear();
+            var month = abbrmonths[a.getMonth()];
+            var date = a.getDate();
+            var hour = a.getHours();
+            var min = a.getMinutes();
+            if(min < 9){
+              min = '0'+min
+            }
+            var sec = a.getSeconds();  
+            if(sec < 9){
+              sec = '0'+sec
+            }    
+            var finalformat = a.getMonth() + '/' + date + '/' + year;
+            return finalformat;
+          }
+          if(data.doc.data().type == "Recovery"){
+            r_case.push(data.doc.data());
+            if(timeConverter(convertfireBaseTime) == timeConverter(today)){
+              r_case_new.push(data.doc.data());
+            }
+          }
+          if(data.doc.data().type == "Infected"){
+            i_case.push(data.doc.data());
+            if(timeConverter(convertfireBaseTime) == timeConverter(today)){
+              i_case_new.push(data.doc.data());
+            }
+          }
+          if(data.doc.data().type == "Death"){
+            d_case.push(data.doc.data());
+            if(timeConverter(convertfireBaseTime) == timeConverter(today)){
+              d_case_new.push(data.doc.data());
+            }
+          }
+          if(data.doc.data().type == "Unknown"){
+            unknown_traces(data.doc.data(), data.doc.id)
+          }
+          if(data.doc.data().type == "Isolated"){
+            isolated_traces(data.doc.data(), data.doc.id)
+          }
+          if(timeConverter(convertfireBaseTime) == timeConverter(today)){
+            new_traces(data.doc.data(), data.doc.id, today)
+            // console.log("true: "+timeConverter(convertfireBaseTime)+ " " + timeConverter(today))
+          }else{                      
+          }
+          
+          
+         
+        })
+          const r_case_content = `
+            <span class="text-success" id="r_cases_p"><i class="fa fa-long-arrow-up"></i> ${r_case_new.length} </span> New ${with_s()} in total of ${r_case.length} recovery cases.
+          `
+          const i_case_content = `
+            <span class="text-warning" id="r_cases_p"><i class="fa fa-long-arrow-up"></i> ${i_case_new.length} </span> New ${with_s()} in total of ${i_case.length} infected cases.
+          `
+          const d_case_content = `
+            <span class="text-danger" id="r_cases_p"><i class="fa fa-long-arrow-up"></i> ${d_case_new.length} </span> New ${with_s()} in total of ${d_case.length} death cases.
+          `
+          function with_s(){
+            if(r_case_new.length == 1 || i_case_new.length == 1 || d_case_new.length == 1){
+              return "case"
+            }else{
+              return "cases"
+            }
+          }
+          $('#r_cases_p').html(r_case_content);
+          $('#i_cases_p').html(i_case_content);
+          $('#d_cases_p').html(d_case_content);
+          console.log("r cases: "+ r_case.length + " new " + r_case_new.length)
+          console.log("i cases: "+ i_case.length + " new " + i_case_new.length)
+          console.log("d cases: "+ d_case.length + " new " + d_case_new.length)        
+      })
+      
+
+     
+      function timediff(data, today) {
+            const convertfireBaseTime = new Date(
+              data.time_added.seconds * 1000 + data.time_added.nanoseconds / 1000000,
+            );
+            console.log(timeConverter(today))
+            console.log(timeConverter(convertfireBaseTime))
+            var timetoday = [];
+            var timefirebase = [];
+            for (var i=0; i<6; i++) {                
+                timetoday.push(timeConverter(today)[i])
+                timefirebase.push(timeConverter(convertfireBaseTime)[i])
+            }        
+            var today_a = timeConverter(today)[0].toString()
+            var today_b = timeConverter(today)[1].toString()
+            var today_c = timeConverter(today)[2].toString()
+            var today_d = timeConverter(today)[3].toString()
+            var today_e = timeConverter(today)[4].toString()
+            var today_f = timeConverter(today)[5].toString()
+
+            var previous_a = timeConverter(convertfireBaseTime)[0].toString()
+            var previous_b = timeConverter(convertfireBaseTime)[1].toString()
+            var previous_c = timeConverter(convertfireBaseTime)[2].toString()
+            var previous_d = timeConverter(convertfireBaseTime)[3].toString()
+            var previous_e = timeConverter(convertfireBaseTime)[4].toString()
+            var previous_f = timeConverter(convertfireBaseTime)[5].toString()
+            
+            var current = new Date(today_a, today_b, today_c, today_d, today_e, today_f)
+            var previous = new Date(previous_a, previous_b, previous_c, previous_d, previous_e, previous_f)
+            // console.log(current)
+            // console.log(previous)
+            // console.log(relativetimeDifference(current, previous))
+            $('#updaterelativetime_recovery').html('<i class="material-icons">access_time</i> updated '+ relativetimeDifference(current,previous))
+            $('#updaterelativetime_infected').html('<i class="material-icons">access_time</i> updated '+ relativetimeDifference(current,previous))
+            $('#updaterelativetime_death').html('<i class="material-icons">access_time</i> updated '+ relativetimeDifference(current,previous))
+      }
+      
+ 
+  
+      function relativetimeDifference(current, previous) {
+    
+          var msPerMinute = 60 * 1000;
+          var msPerHour = msPerMinute * 60;
+          var msPerDay = msPerHour * 24;
+          var msPerMonth = msPerDay * 30;
+          var msPerYear = msPerDay * 365;
+          
+          var elapsed = current - previous;
+          
+          if (elapsed < msPerMinute) {
+              return Math.round(elapsed/1000) + ' seconds ago';   
+          }
+          
+          else if (elapsed < msPerHour) {
+              return Math.round(elapsed/msPerMinute) + ' minutes ago';   
+          }
+          
+          else if (elapsed < msPerDay ) {
+              return Math.round(elapsed/msPerHour ) + ' hours ago';   
+          }
+
+          else if (elapsed < msPerMonth) {
+              return 'approximately ' + Math.round(elapsed/msPerDay) + ' days ago';   
+          }
+          
+          else if (elapsed < msPerYear) {
+              return 'approximately ' + Math.round(elapsed/msPerMonth) + ' months ago';   
+          }
+          
+          else {
+              return 'approximately ' + Math.round(elapsed/msPerYear ) + ' years ago';   
+          }
+      }
+
+      function timeConverter(convertfireBaseTime){
+          var a = new Date(convertfireBaseTime);
+          var year = a.getFullYear();
+          var month = a.getMonth();
+          var date = a.getDate();
+          var hour = a.getHours();
+          var min = a.getMinutes();
+          var sec = a.getSeconds();
+              // if()
+          var finalformat_r = [] 
+          finalformat_r.push(year);
+          finalformat_r.push(month);
+          finalformat_r.push(date);
+          finalformat_r.push(hour);
+          finalformat_r.push(min);
+          finalformat_r.push(sec);          
+          return (finalformat_r);
+      }
+
+      let tracer_tbody = document.querySelector('#tracer_tbody')
+      let i = 0;
+      db.collection("users").onSnapshot((snapshot) => {
+        snapshot.docChanges().forEach(data => { 
+          
+          if(data.doc.data().type == "tracer"){
+            i++
+            render_tracer_list(data.doc.data(), data.doc.id)
+          }
+          
+        })
+      })
+      
+      function render_tracer_list(data, id) {
+        function nameuppercase(firstname, lastname){
+          let fullname = firstname +" "+ lastname;
+          let splitName = fullname.toLowerCase().split(' ');
+          for (let i = 0; i < splitName.length; i++) {
+              splitName[i] = splitName[i].charAt(0).toUpperCase() + splitName[i].substring(1);     
+          }
+          return splitName.join(' '); 
+          
+        }
+        const list_tracers = `
+              <tr>
+                <td>${i}</td>
+                <td>${nameuppercase(data.firstname, data.lastname)}</td>
+                <td>${data.traces}</td>
+                <td>Iba</td>
+              </tr>
+        `;
+        tracer_tbody.innerHTML += list_tracers;
+      }
+
+      function new_traces(data, id){
+          function nameuppercase(firstname, lastname){
+          let fullname = firstname +" "+ lastname;
+          let splitName = fullname.toLowerCase().split(' ');
+          for (let i = 0; i < splitName.length; i++) {
+              splitName[i] = splitName[i].charAt(0).toUpperCase() + splitName[i].substring(1);     
+          }
+          return splitName.join(' '); 
+          
+          }
+           const list_new_traces = `
+                    <tr>
+                      <td><span class="h5">${nameuppercase(data.firstname, data.lastname)}</span><p style="font-height:100px">${data.address}</p></td>
+                      <td class="td-actions text-right">
+                        <a class="btn btn-primary btn-link btn-sm" href="edit_trace.html?id=${id}">
+                          <i class="material-icons">edit</i>
+                        </button>
+                      </td>
+                    </tr>
+          `;
+          new_traces_list.innerHTML += list_new_traces;
+      }
+      function unknown_traces(data, id){
+          function nameuppercase(firstname, lastname){
+          let fullname = firstname +" "+ lastname;
+          let splitName = fullname.toLowerCase().split(' ');
+          for (let i = 0; i < splitName.length; i++) {
+              splitName[i] = splitName[i].charAt(0).toUpperCase() + splitName[i].substring(1);     
+          }
+          return splitName.join(' '); 
+          
+          }
+           const list_unknown_traces = `
+                    <tr>
+                      <td><span class="h5">${nameuppercase(data.firstname, data.lastname)}</span><p style="font-height:100px">${data.address}</p></td>
+                      <td class="td-actions text-right">
+                        <a class="btn btn-primary btn-link btn-sm" href="edit_trace.html?id=${id}">
+                          <i class="material-icons">edit</i>
+                        </button>
+                      </td>
+                    </tr>
+          `;
+          unknown_traces_list.innerHTML += list_unknown_traces;
+      }
+      function isolated_traces(data, id){
+          function nameuppercase(firstname, lastname){
+          let fullname = firstname +" "+ lastname;
+          let splitName = fullname.toLowerCase().split(' ');
+          for (let i = 0; i < splitName.length; i++) {
+              splitName[i] = splitName[i].charAt(0).toUpperCase() + splitName[i].substring(1);     
+          }
+          return splitName.join(' '); 
+          
+          }
+           const list_isolated_traces = `
+                    <tr>
+                      <td><span class="h5">${nameuppercase(data.firstname, data.lastname)}</span><p style="font-height:100px">${data.address}</p></td>
+                      <td class="td-actions text-right">
+                        <a class="btn btn-primary btn-link btn-sm" href="edit_trace.html?id=${id}">
+                          <i class="material-icons">edit</i>
+                        </button>
+                      </td>
+                    </tr>
+          `;
+          isolated_traces_list.innerHTML += list_isolated_traces;
+      }
+
+
+
+
+    });
+
+    
+    function username_check(_username) {
+      check_username = db.collection('users').doc(_username);
+      check_username.get().then((doc) => {
+        
+        if(doc.exists){          
+          $('#create_username_div').addClass('has-danger').removeClass('has-success');          
+        }else{
+          $('#create_username_div').removeClass('has-danger').addClass('has-success');
+        }
+      })
+      
+    }
+
+    function passwordhash(password) {
+        const hash_password = new jsSHA("SHA-256", "TEXT", {numRounds: 1});
+        hash_password.update(password);
+        const hashed = hash_password.getHash("HEX");
+        return hashed;
+    }
+
+    function create_user(_username) {
+      check_username = db.collection('users').doc(_username);
+      check_username.get().then((doc) => {
+        if(doc.exists){                    
+          swalfire('username_already_used')        
+          $('#add_to_user_btn').removeAttr('disabled');  
+        }else{
+          const add_user_details = {
+            firstname: $('#create_firstname').val(),
+            lastname: $('#create_lastname').val(),
+            contact: $('#create_contact').val(),
+            email: $('#create_email').val(),
+            address: $('#create_address').val(),
+            type: $('#create_type').val(),
+            traces: '0',
+            password: passwordhash('1tr@c3App'),
+            session_status: 'logged_out',
+            session_time_in: firebase.firestore.Timestamp.fromDate(new Date()),
+            session_time_out: firebase.firestore.Timestamp.fromDate(new Date()),
+
+          }
+          db.collection('users').doc(_username).set(add_user_details).then(() =>{
+            swalfire('user_create_success')
+            $('#add_to_user_btn').removeAttr('disabled');  
+          });
+        }
+      });
+      
+    }
+    
+
+
+    
+
+    
+    
+  </script>
+</body>
+
+</html>

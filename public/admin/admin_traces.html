@@ -1,0 +1,373 @@
+<!--
+=========================================================
+ITRACE
+=========================================================
+
+Coded by Adrian Neil Asence
+
+=========================================================
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  
+  <link rel="icon" type="image/png" href="../assets/img/icons/icon-72x72.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    ITRACE
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+  <meta content='yes' name='apple-mobile-web-app-capable'/>
+  <meta content='yes' name='mobile-web-app-capable'/>
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <!-- CSS Files -->
+  <link href="../assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="../assets/css/main.css" rel="stylesheet" />
+  
+  <link rel="manifest" href="../manifest.json">
+
+  <!-- ios support -->
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/icons/icon-96x96.png">
+  <meta name="apple-mobile-web-app-status-bar" content="#6c0e7f">
+  <meta name="theme-color" content="#9c27b0">
+
+
+</head>
+
+<body class="" oncontextmenu="return false">
+  <div class="wrapper ">
+    <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+      <!--
+        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+        Tip 2: you can also add an image using data-image tag
+    -->
+      <div class="logo"><a href="" class="simple-text logo-normal">
+          ITRACE
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="admin_dashboard.html">
+              <i class="material-icons">dashboard</i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+         <!-- <li class="nav-item ">
+            <a class="nav-link" href="notifications.html">
+              <i class="material-icons">notifications</i>
+              <p>Activity</p>
+            </a>
+          </li> -->
+          <li class="nav-item active">
+            <a class="nav-link" href="admin_traces.html">
+              <i class="material-icons">content_paste</i>
+              <p>Traces</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="admin_maps.html">
+              <i class="material-icons">location_ons</i>
+              <p>Check Area</p>
+            </a>
+          </li>
+          
+          <li class="nav-item ">
+            <a class="nav-link" href="admin_user.html">
+              <i class="material-icons">person</i>
+              <p>Account</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="#" onclick="swalfire('log_out')">
+              <i class="material-icons">logout</i>
+              <p>Log out</p>
+            </a>
+          </li>
+          
+        </ul>
+
+        
+      </div>
+    </div>
+    <div class="main-panel">
+      <!-- Navbar -->
+      
+      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <a class="navbar-brand" href="javascript:void(0);">Traces</a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end">
+            <!-- <form class="navbar-form">
+              <div class="input-group no-border">
+                <input type="text" value="" class="form-control" placeholder="Search...">
+                <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                  <i class="material-icons">search</i>
+                  <div class="ripple-container"></div>
+                </button>
+              </div>
+            </form> -->
+            <ul class="navbar-nav">
+              
+            </ul>
+          </div>
+        </div>
+        <hr/>
+      </nav>
+      <!-- End Navbar -->
+      <div class="content">
+        <div class="container-fluid">        
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card card-plain">
+                <div class="card-header card-header-primary">
+                  <a href="add_trace.html" class="btn btn-success" style="float: right;">Add</a>
+                  <h4 class="card-title mt-0">Traces list</h4>
+                  <p class="card-category">List of all traces</p>
+                </div>
+                <div class="card-body">
+
+                  <div class="list-group" id="traces_list">
+                    
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+ 
+  <!--   Core JS Files   -->
+  <script src="../assets/js/core/jquery.min.js"></script>
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap-material-design.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!-- Plugin for the momentJs  -->
+  <script src="../assets/js/plugins/moment.min.js"></script>
+  <!--  Plugin for Sweet Alert -->
+  <script src="../assets/js/plugins/sweetalert2.js"></script>
+  <!-- Forms Validations Plugin -->
+  <script src="../assets/js/plugins/jquery.validate.min.js"></script>
+  <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+  <script src="../assets/js/plugins/jquery.bootstrap-wizard.js"></script>
+  <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+  <script src="../assets/js/plugins/bootstrap-selectpicker.js"></script>
+  <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+  <script src="../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
+  <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
+  <script src="../assets/js/plugins/jquery.dataTables.min.js"></script>
+  <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+  <script src="../assets/js/plugins/bootstrap-tagsinput.js"></script>
+  <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+  <script src="../assets/js/plugins/jasny-bootstrap.min.js"></script>
+  <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+  <script src="../assets/js/plugins/fullcalendar.min.js"></script>
+  <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+  <script src="../assets/js/plugins/jquery-jvectormap.js"></script>
+  <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+  <script src="../assets/js/plugins/nouislider.min.js"></script>
+  <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+  <!-- Library for adding dinamically elements -->
+  <script src="../assets/js/plugins/arrive.min.js"></script>
+  <!--  Google Maps Plugin    -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCL0GSMCN9vKb6AUulcxHsLEj3JQHVJS9M"></script>
+  <!-- Chartist JS -->
+  <script src="../assets/js/plugins/chartist.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../assets/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
+  <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+  
+  <script src="../assets/js/main.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-firestore.js"></script>
+  <script src="../assets/js/app.js"></script>
+  <script src="../assets/js/swalfire.js"></script>
+  <script src="../assets/js/fstore.js"></script>
+  <script src="../assets/js/session.js"></script>
+
+  <script>
+
+    // const add_record_form = document.querySelector('#add_record_modal_form');
+    // add_record_form.addEventListener('submit', event =>{
+    //     event.preventDefault()
+        
+    //     const add_record_form_data = {
+    //         firstname : add_record_form.add_firstname.value,
+    //         lastname : add_record_form.add_lastname.value,
+    //         email_address : add_record_form.add_emailadd.value,
+    //         contact_num : add_record_form.add_contactnum.value,
+    //         address : add_record_form.add_address.value,            
+    //         addedby : localStorage.getItem("session_id"),
+    //         time_added : firebase.firestore.Timestamp.fromDate(new Date()), 
+
+    //     };
+
+    //     db.collection('trace_record').add(add_record_form_data)
+    //     .then(() => console.log('Added'))
+    //     .catch(error => console.log(error));
+
+    //     add_record_form.reset();
+
+    // })
+
+    db.collection('trace_record').orderBy('time_added','desc').onSnapshot((snapshot) => {
+    // console.log(snapshot.docChanges());
+    snapshot.docChanges().forEach(data => {
+        // console.log(data, data.doc.data(), data.doc.id, data.type);
+
+        if(data.type === 'added'){
+            render_trace_list(data.doc.data(), data.doc.id);
+        }else if(data.type === 'removed'){
+            render_trace_list(data.doc.data(), data.doc.id);
+        }
+
+        });
+    }) 
+
+
+  // render
+    const traces_list = document.querySelector('#traces_list')
+    const render_trace_list = (data, id) => {
+      
+    
+      const convertfireBaseTime = new Date(
+        data.time_added.seconds * 1000 + data.time_added.nanoseconds / 1000000,
+      );
+      
+      const format_date = convertfireBaseTime.toDateString();
+      
+      const format_time = convertfireBaseTime.toLocaleTimeString();
+
+      function timeConverter(convertfireBaseTime){
+        var a = new Date(convertfireBaseTime);
+        var abbrmonths = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        var fullmonths = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        var year = a.getFullYear();
+        var month = abbrmonths[a.getMonth()];
+        var date = a.getDate();
+        var hour = a.getHours();
+        var min = a.getMinutes();
+        var sec = a.getSeconds();
+        // if()
+        var finalformat = month + ' ' + date + ', ' + year + ' at ' + hour + ':' + min + ':' + sec ;
+        return finalformat;
+      }
+
+      let list_group_item_color;
+      if(data.type == 'Unknown'){
+        list_group_item_color = 'secondary';
+      }else if(data.type == 'Recovery'){
+        list_group_item_color = 'success';
+      }else if(data.type == 'Infected'){
+        list_group_item_color = 'warning';
+      }else if(data.type == 'Death'){
+        list_group_item_color = 'danger';
+      }else if(data.type == 'Isolated'){
+        list_group_item_color = 'info';
+      }
+    
+      let list_traces = `
+          <a href="javascript:void(0);" class="list-group-item list-group-item-action list-group-item-${list_group_item_color}" data-id="${id}" id="${id}">
+
+            <button class="btn btn-danger btn-round btn-fab btn-fab-mini" style="float: right" onclick="removeTrace('${id}')"><i class="material-icons">delete</i></button>
+
+            <button class="btn btn-primary btn-round btn-fab btn-fab-mini" style="float: right" onclick="window.location.href='admin_edit_trace.html?id=${id}'; localStorage.removeItem('trace_record_lat'); localStorage.removeItem('trace_record_lng')"><i class="material-icons">edit</i></button>
+        
+            <div class="w-100 justify-content-between">                                    
+              <h4 class="mb-0">${data.firstname} ${data.lastname}</h4>
+              <p class="">${data.address}.</p>
+            </div>          
+
+            <p class="h6 mt-3">
+              Added by ${data.addedby} <br/>
+              ${timeConverter(convertfireBaseTime)}              
+            </p>           
+          </a>          
+      `;
+      traces_list.innerHTML += list_traces;
+    }
+
+
+    function removeTrace(id){
+      var trace_selected = document.getElementById(id);  
+      let delete_trace = db.collection("trace_record").doc(id)
+
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          delete_trace.get().then((doc) => {
+            if(doc.exists){
+                delete_trace.delete().then(() => {
+                  trace_selected.remove();
+                  $('#'+id).hide();
+                  Swal.fire(
+                    'Deleted!',
+                    'Record has been deleted.',
+                    'success'
+                  )
+                })
+          
+            }
+          })          
+        }
+        // if (result.isConfirmed) {
+        //   delete_trace.get().then((doc) => {
+        //     if(doc.exists){
+        //       if(doc.data().addedby == localStorage.getItem("session_name")){
+        //         delete_trace.delete().then(() => {
+        //           trace_selected.remove();
+        //           $('#'+id).hide();
+        //           Swal.fire(
+        //             'Deleted!',
+        //             'Record has been deleted.',
+        //             'success'
+        //           )
+        //         })
+                
+        //       }else{
+        //         Swal.fire(
+        //           'Can\'t Delete!',
+        //           'This record is not yours.',
+        //           'error'
+        //         )
+        //       }
+        //     }
+        //   })          
+        // }
+      })
+    }
+  </script>
+   
+
+  
+  
+</body>
+
+</html>

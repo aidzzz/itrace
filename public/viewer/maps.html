@@ -1,0 +1,580 @@
+<!--
+=========================================================
+ITRACE
+=========================================================
+
+Coded by Adrian Neil Asence
+
+=========================================================
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8" />
+    
+    <link rel="icon" type="image/png" href="../assets/img/icons/icon-72x72.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+      ITRACE
+    </title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+  <meta content='yes' name='apple-mobile-web-app-capable'/>
+  <meta content='yes' name='mobile-web-app-capable'/>
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <!-- CSS Files -->
+    <link href="../assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="../assets/css/main.css" rel="stylesheet" />
+    
+    <link rel="manifest" href="../manifest.json">
+  
+    <!-- ios support -->
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/icons/icon-96x96.png">
+    <meta name="apple-mobile-web-app-status-bar" content="#6c0e7f">
+    <meta name="theme-color" content="#9c27b0">
+  </head>
+  
+  
+
+<body class="" oncontextmenu="return false">
+  <div class="wrapper ">
+    <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+      <!--
+        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+        Tip 2: you can also add an image using data-image tag
+    -->
+      <div class="logo"><a href="" class="simple-text logo-normal">
+          ITRACE
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="dashboard.html">
+              <i class="material-icons">dashboard</i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+         <!-- <li class="nav-item ">
+            <a class="nav-link" href="notifications.html">
+              <i class="material-icons">notifications</i>
+              <p>Activity</p>
+            </a>
+          </li> -->
+          <li class="nav-item active">
+            <a class="nav-link" href="maps.html">
+              <i class="material-icons">location_ons</i>
+              <p>Check Area</p>
+            </a>
+          </li>
+          
+        </ul>
+
+        
+      </div>
+    </div>
+    <div class="main-panel">
+      <!-- Navbar -->
+      
+      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <a class="navbar-brand" href="javascript:void(0);">Check Area</a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end">
+            <!-- <form class="navbar-form">
+              <div class="input-group no-border">
+                <input type="text" value="" class="form-control" placeholder="Search...">
+                <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                  <i class="material-icons">search</i>
+                  <div class="ripple-container"></div>
+                </button>
+              </div>
+            </form> -->
+            <ul class="navbar-nav">
+              
+            </ul>
+          </div>
+        </div>
+        <hr/>
+      </nav>
+      <!-- End Navbar -->
+      <div id="map"></div>
+    </div>
+  </div>
+
+
+  <!--   Core JS Files   -->
+  <script src="../assets/js/core/jquery.min.js"></script>
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap-material-design.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!-- Plugin for the momentJs  -->
+  <script src="../assets/js/plugins/moment.min.js"></script>
+  <!--  Plugin for Sweet Alert -->
+  <script src="../assets/js/plugins/sweetalert2.js"></script>
+  <!-- Forms Validations Plugin -->
+  <script src="../assets/js/plugins/jquery.validate.min.js"></script>
+  <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+  <script src="../assets/js/plugins/jquery.bootstrap-wizard.js"></script>
+  <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+  <script src="../assets/js/plugins/bootstrap-selectpicker.js"></script>
+  <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+  <script src="../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
+  <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
+  <script src="../assets/js/plugins/jquery.dataTables.min.js"></script>
+  <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+  <script src="../assets/js/plugins/bootstrap-tagsinput.js"></script>
+  <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+  <script src="../assets/js/plugins/jasny-bootstrap.min.js"></script>
+  <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+  <script src="../assets/js/plugins/fullcalendar.min.js"></script>
+  <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+  <script src="../assets/js/plugins/jquery-jvectormap.js"></script>
+  <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+  <script src="../assets/js/plugins/nouislider.min.js"></script>
+  <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+  <!-- Library for adding dinamically elements -->
+  <script src="../assets/js/plugins/arrive.min.js"></script>
+  <!--  Google Maps Plugin    -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCL0GSMCN9vKb6AUulcxHsLEj3JQHVJS9M"></script>
+  <!-- Chartist JS -->
+  <script src="../assets/js/plugins/chartist.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../assets/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
+  <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+  <script src="../assets/js/main.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-firestore.js"></script>
+  <script src="../assets/js/app.js"></script>
+  <script src="../assets/js/swalfire.js"></script>
+  <script src="../assets/js/fstore.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/js/demos.js
+      check_area_map();
+      
+    });
+
+
+    function check_area_map() {
+      // const geocoder = new google.maps.Geocoder();
+      const infowindow = new google.maps.InfoWindow();
+      let markers = [];
+      let contents = [];
+      let i = 0;  
+      let today = new Date().getTime();
+
+      
+      var default_center = new google.maps.LatLng(15.32585, 119.9800576);
+      var mapOptions = {
+        zoom: 14,
+        center: default_center,
+        scrollwheel: false, //we disable de scroll over the map, it is a really annoing when you scroll through page
+        disableDefaultUI: true,
+        streetViewControl: true,
+        restriction: {
+          latLngBounds: {
+            north: 16,
+            south: 14,
+            east: 121,
+            west: 119,
+          }
+        },
+        styles: 
+        [
+          {
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#ebe3cd"
+              }
+            ]
+          },
+          {
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#523735"
+              }
+            ]
+          },
+          {
+            "elementType": "labels.text.stroke",
+            "stylers": [
+              {
+                "color": "#f5f1e6"
+              }
+            ]
+          },
+          {
+            "featureType": "administrative",
+            "elementType": "geometry.stroke",
+            "stylers": [
+              {
+                "color": "#c9b2a6"
+              }
+            ]
+          },
+          {
+            "featureType": "administrative.land_parcel",
+            "elementType": "geometry.stroke",
+            "stylers": [
+              {
+                "color": "#dcd2be"
+              }
+            ]
+          },
+          {
+            "featureType": "administrative.land_parcel",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#ae9e90"
+              }
+            ]
+          },
+          {
+            "featureType": "landscape.natural",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#dfd2ae"
+              }
+            ]
+          },
+          {
+            "featureType": "poi",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#dfd2ae"
+              }
+            ]
+          },
+          {
+            "featureType": "poi",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#93817c"
+              }
+            ]
+          },
+          {
+            "featureType": "poi.park",
+            "elementType": "geometry.fill",
+            "stylers": [
+              {
+                "color": "#a5b076"
+              }
+            ]
+          },
+          {
+            "featureType": "poi.park",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#447530"
+              }
+            ]
+          },
+          {
+            "featureType": "road",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#f5f1e6"
+              }
+            ]
+          },
+          {
+            "featureType": "road.arterial",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#fdfcf8"
+              }
+            ]
+          },
+          {
+            "featureType": "road.highway",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#f8c967"
+              }
+            ]
+          },
+          {
+            "featureType": "road.highway",
+            "elementType": "geometry.stroke",
+            "stylers": [
+              {
+                "color": "#e9bc62"
+              }
+            ]
+          },
+          {
+            "featureType": "road.highway.controlled_access",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#e98d58"
+              }
+            ]
+          },
+          {
+            "featureType": "road.highway.controlled_access",
+            "elementType": "geometry.stroke",
+            "stylers": [
+              {
+                "color": "#db8555"
+              }
+            ]
+          },
+          {
+            "featureType": "road.local",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#806b63"
+              }
+            ]
+          },
+          {
+            "featureType": "transit.line",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#dfd2ae"
+              }
+            ]
+          },
+          {
+            "featureType": "transit.line",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#8f7d77"
+              }
+            ]
+          },
+          {
+            "featureType": "transit.line",
+            "elementType": "labels.text.stroke",
+            "stylers": [
+              {
+                "color": "#ebe3cd"
+              }
+            ]
+          },
+          {
+            "featureType": "transit.station",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#dfd2ae"
+              }
+            ]
+          },
+          {
+            "featureType": "water",
+            "elementType": "geometry.fill",
+            "stylers": [
+              {
+                "color": "#b9d3c2"
+              }
+            ]
+          },
+          {
+            "featureType": "water",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#92998d"
+              }
+            ]
+          }
+        ]
+
+      };
+      var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+      
+      db.collection('trace_record').orderBy('time_added','asc').onSnapshot((snapshot) => {
+        // console.log(snapshot.docChanges());
+        snapshot.docChanges().forEach(data => {
+
+        if(data.type === 'added'){
+            i++
+            
+            const lat_coords = data.doc.data().geo_location.latitude; 
+            const lng_coords = data.doc.data().geo_location.longitude; 
+            const latlng_coords = new google.maps.LatLng(lat_coords, lng_coords)        
+            const iconbase = '../assets/img/mapicons/'       
+            
+            let icon_type, badge_type_color, btn_color;
+            if(data.doc.data().type == 'Unknown'){
+              icon_type = iconbase + 'purple-dot.png';
+              badge_type_color = 'bg-secondary text-light';
+              btn_color = 'btn-default';
+            }else if(data.doc.data().type == 'Recovery'){
+              icon_type = iconbase + 'green-dot.png';
+              badge_type_color = 'bg-success text-light';
+              btn_color = 'btn-success'
+            }else if(data.doc.data().type == 'Infected'){
+              icon_type = iconbase + 'yellow-dot.png';
+              badge_type_color = 'badge-warning text-light';
+              btn_color = 'btn-warning'
+            }else if(data.doc.data().type == 'Death'){
+              icon_type = iconbase + 'red-dot.png';
+              badge_type_color = 'bg-danger text-light';
+              btn_color = 'btn-danger'
+            }else if(data.doc.data().type == 'Isolated'){
+              icon_type = iconbase + 'ltblue-dot.png';
+              badge_type_color = 'bg-info text-light';
+              btn_color = 'btn-info'
+            }
+
+            const marker = new google.maps.Marker({
+              position: latlng_coords,
+              title: data.doc.id,
+              animation: google.maps.Animation.DROP,
+              icon: icon_type,
+            });
+            
+            markers.push(marker);
+            function nameuppercase(firstname, lastname){
+              let fullname = firstname +" "+ lastname;
+              let splitName = fullname.toLowerCase().split(' ');
+              for (let i = 0; i < splitName.length; i++) {
+                  splitName[i] = splitName[i].charAt(0).toUpperCase() + splitName[i].substring(1);     
+              }
+              return splitName.join(' '); 
+              
+            }
+            const convertfireBaseTime = new Date(
+              data.doc.data().time_added.seconds * 1000 + data.doc.data().time_added.nanoseconds / 1000000,
+            );
+            function timeConverter(convertfireBaseTime){
+              var a = new Date(convertfireBaseTime);
+              var abbrmonths = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+              var fullmonths = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+              var year = a.getFullYear();
+              var month = abbrmonths[a.getMonth()];
+              var date = a.getDate();
+              var hour = a.getHours();
+              if(hour < 9){
+                hour = '0'+hour
+              }
+              var min = a.getMinutes();
+              if(min < 9){
+                min = '0'+min
+              }
+              var sec = a.getSeconds();
+              if(sec < 9){
+                sec = '0'+sec
+              }
+              // if()
+              var finalformat = month + ' ' + date + ', ' + year + ' at ' + hour + ':' + min + ':' + sec ;
+              return finalformat;
+            }
+
+            function timeConverter2(convertfireBaseTime){
+              var a = new Date(convertfireBaseTime);
+              var abbrmonths = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+              var fullmonths = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+              var year = a.getFullYear();
+              var month = abbrmonths[a.getMonth()];
+              var date = a.getDate();
+              var hour = a.getHours();
+              var min = a.getMinutes();
+              if(min < 9){
+                min = '0'+min
+              }
+              var sec = a.getSeconds();  
+              if(sec < 9){
+                sec = '0'+sec
+              }    
+              var finalformat = a.getMonth() + '/' + date + '/' + year;
+              return finalformat;
+            }
+
+            function is_new(badge_type_color, convertfireBaseTime, today){
+              if(timeConverter2(convertfireBaseTime) == timeConverter2(today)){                
+                return ` <div class="badge badge-pill ${badge_type_color}" style="float:right">New</div> `
+              }else{
+                return ' '
+              }
+            }
+
+
+            const content = `
+
+            <div class="">
+              <h4>
+                Trace No. ${i} ${is_new(badge_type_color, convertfireBaseTime, today)}
+              </h4>
+              
+              <div class="badge ${badge_type_color} text-wrap h6">
+                ${data.doc.data().type}
+              </div>
+              
+              <p class="lh-base mt-3">${data.doc.data().address}.</p>
+
+              <p>Time added:<br/>${timeConverter(convertfireBaseTime)}</p>            
+            </div>
+            `;
+            contents.push(content);
+            
+            render_markers(data.doc.data(), data.doc.id, content);
+                
+          }else if(data.type === 'removed'){
+
+                // removeRecipe(data.doc.id);
+          }
+
+        });
+      }) 
+
+    const render_markers = (data, id, content) => {
+      // console.log(content);
+      setMapOnAllMarkers(map, data, content);     
+      }
+      
+      function setMapOnAllMarkers(map, data, content) {
+        for (let i = 0; i < markers.length; i++) {
+          
+          markers[i].setMap(map);          
+          
+          markers[i].addListener("click", () => {
+            infowindow.setContent(contents[i]);
+            infowindow.open(map, markers[i]);
+          });
+        }
+      }
+      console.log(markers)
+      console.log(contents)
+    }
+    
+  </script>
+
+
+  
+</body>
+
+</html>

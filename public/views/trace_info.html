@@ -1,0 +1,524 @@
+<!--
+=========================================================
+ITRACE
+=========================================================
+
+Coded by Adrian Neil Asence
+
+=========================================================
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8" />
+    
+    <link rel="icon" type="image/png" href="../assets/img/icons/icon-72x72.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+      ITRACE
+    </title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+  <meta content='yes' name='apple-mobile-web-app-capable'/>
+  <meta content='yes' name='mobile-web-app-capable'/>
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <!-- CSS Files -->
+    <link href="../assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="../assets/css/main.css" rel="stylesheet" />
+    
+    <link rel="manifest" href="../manifest.json">
+  
+    <!-- ios support -->
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/icons/icon-96x96.png">
+    <meta name="apple-mobile-web-app-status-bar" content="#6c0e7f">
+    <meta name="theme-color" content="#9c27b0">
+  </head>
+  
+  
+
+<body class="" oncontextmenu="return false">
+  <div class="wrapper ">
+    <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+      <!--
+        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+        Tip 2: you can also add an image using data-image tag
+    -->
+      <div class="logo"><a href="" class="simple-text logo-normal">
+          ITRACE
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="dashboard.html">
+              <i class="material-icons">dashboard</i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+         <!-- <li class="nav-item ">
+            <a class="nav-link" href="notifications.html">
+              <i class="material-icons">notifications</i>
+              <p>Activity</p>
+            </a>
+          </li> -->
+          <li class="nav-item ">
+            <a class="nav-link" href="traces.html">
+              <i class="material-icons">content_paste</i>
+              <p>Traces</p>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="maps.html">
+              <i class="material-icons">location_ons</i>
+              <p>Check Area</p>
+            </a>
+          </li>
+          
+          <li class="nav-item ">
+            <a class="nav-link" href="user.html">
+              <i class="material-icons">person</i>
+              <p>Account</p>
+            </a>
+          </li>
+
+          <li class="nav-item ">
+            <a class="nav-link" href="#" onclick="swalfire('log_out')">
+              <i class="material-icons">logout</i>
+              <p>Log out</p>
+            </a>
+          </li>
+          
+        </ul>
+
+        
+      </div>
+    </div>
+    <div class="main-panel">
+      <!-- Navbar -->
+      
+      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <a class="navbar-brand" href="javascript:void(0);" id="id_">Trace Info</a>
+          </div>
+          <a class="btn btn-link btn-fab btn-round" href="maps.html"><i class="material-icons">close</i>          
+          </a>
+          <div class="collapse navbar-collapse justify-content-end">
+            <!-- <form class="navbar-form">
+              <div class="input-group no-border">
+                <input type="text" value="" class="form-control" placeholder="Search...">
+                <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                  <i class="material-icons">search</i>
+                  <div class="ripple-container"></div>
+                </button>
+              </div>
+            </form> -->
+            <ul class="navbar-nav">
+              
+            </ul>
+          </div>
+        </div>
+        <hr/>
+      </nav>
+      <!-- End Navbar -->
+      <div class="content">
+        <div class="container-fluid">
+          <p id="trace_name" class="" style="font-size:larger;">Name: </p>
+          <p id="trace_time_added">Time added: </p>
+          <p id="trace_status">Status: </p>
+          
+          <p id="trace_email">Email: <button class="btn btn-sm btn-fab btn-round" id="email_this_"><i class="material-icons">mail</i></button>  </p> 
+          
+          <p id="trace_contact">Contact: <button class="btn btn-sm btn-fab btn-round" id="call_this_"><i class="material-icons">phone</i></button> </p>
+          <p id="trace_address">Address: </p>
+          <div id="trace_map" style="height: 300px;"></div>          
+          <button class="btn btn-block" onclick="edit_trace(_id)">Edit</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!--   Core JS Files   -->
+  <script src="../assets/js/core/jquery.min.js"></script>
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap-material-design.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!-- Plugin for the momentJs  -->
+  <script src="../assets/js/plugins/moment.min.js"></script>
+  <!--  Plugin for Sweet Alert -->
+  <script src="../assets/js/plugins/sweetalert2.js"></script>
+  <!-- Forms Validations Plugin -->
+  <script src="../assets/js/plugins/jquery.validate.min.js"></script>
+  <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+  <script src="../assets/js/plugins/jquery.bootstrap-wizard.js"></script>
+  <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+  <script src="../assets/js/plugins/bootstrap-selectpicker.js"></script>
+  <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+  <script src="../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
+  <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
+  <script src="../assets/js/plugins/jquery.dataTables.min.js"></script>
+  <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+  <script src="../assets/js/plugins/bootstrap-tagsinput.js"></script>
+  <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+  <script src="../assets/js/plugins/jasny-bootstrap.min.js"></script>
+  <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+  <script src="../assets/js/plugins/fullcalendar.min.js"></script>
+  <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+  <script src="../assets/js/plugins/jquery-jvectormap.js"></script>
+  <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+  <script src="../assets/js/plugins/nouislider.min.js"></script>
+  <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+  <!-- Library for adding dinamically elements -->
+  <script src="../assets/js/plugins/arrive.min.js"></script>
+  <!--  Google Maps Plugin    -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCL0GSMCN9vKb6AUulcxHsLEj3JQHVJS9M"></script>
+  <!-- Chartist JS -->
+  <script src="../assets/js/plugins/chartist.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../assets/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
+  <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+  <script src="../assets/js/main.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-firestore.js"></script>
+  <script src="../assets/js/app.js"></script>
+  <script src="../assets/js/swalfire.js"></script>
+  <script src="../assets/js/fstore.js"></script>
+
+  <script>
+    $(document).ready(function(){
+      
+    });
+    let get_url = window.location.href
+    let _id = get_url.split("=").pop();
+    let trace_name = document.getElementById("trace_name"), trace_contact = document.getElementById("trace_contact"), trace_email= document.getElementById("trace_email"), trace_address = document.getElementById("trace_address"), trace_type = document.getElementById("trace_type"), trace_time_added = document.getElementById("trace_time_added"), trace_status = document.getElementById("trace_status");;
+
+    function edit_trace(_id){
+      window.location.href = "edit_trace.html?id=" + _id
+    }
+    let docRef = db.collection("trace_record").doc(_id);
+    docRef.get().then((doc) => {
+        if (doc.exists) {
+
+            trace_area_map(doc.data().geo_location.latitude, doc.data().geo_location.longitude);
+            console.log("Document data:", doc.data());
+            
+            const convertfireBaseTime = new Date(
+              doc.data().time_added.seconds * 1000 + doc.data().time_added.nanoseconds / 1000000,
+            );
+            trace_name.innerHTML += nameuppercase(doc.data().firstname, doc.data().lastname);
+            trace_email.innerHTML += doc.data().email_address;
+            trace_contact.innerHTML += doc.data().contact_num;
+            trace_address.innerHTML += doc.data().address;
+            trace_status.innerHTML += doc.data().type;
+            trace_time_added.innerHTML += timeConverter(convertfireBaseTime);
+
+            $('#email_this_').click(function () {
+              open_email(doc.data().email_address);
+            });
+
+            $('#call_this_').click(function () {
+              open_contact(doc.data().contact_num);
+            });
+        } else {
+            console.log("No such document!");
+        }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
+  
+    
+    function nameuppercase(firstname, lastname){
+      let fullname = firstname +" "+ lastname;
+      let splitName = fullname.toLowerCase().split(' ');
+      for (let i = 0; i < splitName.length; i++) {
+          splitName[i] = splitName[i].charAt(0).toUpperCase() + splitName[i].substring(1);     
+      }
+      return splitName.join(' '); 
+      
+    }
+
+    function timeConverter(convertfireBaseTime){
+        var a = new Date(convertfireBaseTime);
+        var abbrmonths = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        var fullmonths = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        var year = a.getFullYear();
+        var amonth = abbrmonths[a.getMonth()];
+        var fmonth = fullmonths[a.getMonth()];
+        var date = a.getDate();
+        var hour = a.getHours();
+        var min = a.getMinutes();
+        var sec = a.getSeconds();      
+        var finalformat = fmonth + ' ' + date + ', ' + year + ' at ' + hour + ':' + min + ':' + sec ;
+        return finalformat;
+      }
+
+    function open_email(email) {
+      window.location.href = "mailto:"+ email +"?subject=ITRACE APP EMAIL&body=This email is from ITRACE APP.";
+    }
+    function open_contact(contact) {
+      // console.log(contact)
+      document.location.href = "tel:" + contact;
+    }
+
+    function trace_area_map(lat_coords, lng_coords) {
+      const default_center = new google.maps.LatLng(lat_coords, lng_coords)  
+      // var default_center = new google.maps.LatLng(15.32585, 119.9800576);
+      var mapOptions = {
+        zoom: 15,
+        center: default_center,
+        scrollwheel: false, //we disable de scroll over the map, it is a really annoing when you scroll through page
+        disableDefaultUI: true,
+        streetViewControl: true,
+        // gestureHandling: "greedy",
+        restriction: {
+          latLngBounds: {
+            north: 16,
+            south: 14,
+            east: 121,
+            west: 119,
+          }
+        },
+        styles: 
+        [
+          {
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#ebe3cd"
+              }
+            ]
+          },
+          {
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#523735"
+              }
+            ]
+          },
+          {
+            "elementType": "labels.text.stroke",
+            "stylers": [
+              {
+                "color": "#f5f1e6"
+              }
+            ]
+          },
+          {
+            "featureType": "administrative",
+            "elementType": "geometry.stroke",
+            "stylers": [
+              {
+                "color": "#c9b2a6"
+              }
+            ]
+          },
+          {
+            "featureType": "administrative.land_parcel",
+            "elementType": "geometry.stroke",
+            "stylers": [
+              {
+                "color": "#dcd2be"
+              }
+            ]
+          },
+          {
+            "featureType": "administrative.land_parcel",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#ae9e90"
+              }
+            ]
+          },
+          {
+            "featureType": "landscape.natural",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#dfd2ae"
+              }
+            ]
+          },
+          {
+            "featureType": "poi",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#dfd2ae"
+              }
+            ]
+          },
+          {
+            "featureType": "poi",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#93817c"
+              }
+            ]
+          },
+          {
+            "featureType": "poi.park",
+            "elementType": "geometry.fill",
+            "stylers": [
+              {
+                "color": "#a5b076"
+              }
+            ]
+          },
+          {
+            "featureType": "poi.park",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#447530"
+              }
+            ]
+          },
+          {
+            "featureType": "road",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#f5f1e6"
+              }
+            ]
+          },
+          {
+            "featureType": "road.arterial",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#fdfcf8"
+              }
+            ]
+          },
+          {
+            "featureType": "road.highway",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#f8c967"
+              }
+            ]
+          },
+          {
+            "featureType": "road.highway",
+            "elementType": "geometry.stroke",
+            "stylers": [
+              {
+                "color": "#e9bc62"
+              }
+            ]
+          },
+          {
+            "featureType": "road.highway.controlled_access",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#e98d58"
+              }
+            ]
+          },
+          {
+            "featureType": "road.highway.controlled_access",
+            "elementType": "geometry.stroke",
+            "stylers": [
+              {
+                "color": "#db8555"
+              }
+            ]
+          },
+          {
+            "featureType": "road.local",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#806b63"
+              }
+            ]
+          },
+          {
+            "featureType": "transit.line",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#dfd2ae"
+              }
+            ]
+          },
+          {
+            "featureType": "transit.line",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#8f7d77"
+              }
+            ]
+          },
+          {
+            "featureType": "transit.line",
+            "elementType": "labels.text.stroke",
+            "stylers": [
+              {
+                "color": "#ebe3cd"
+              }
+            ]
+          },
+          {
+            "featureType": "transit.station",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#dfd2ae"
+              }
+            ]
+          },
+          {
+            "featureType": "water",
+            "elementType": "geometry.fill",
+            "stylers": [
+              {
+                "color": "#b9d3c2"
+              }
+            ]
+          },
+          {
+            "featureType": "water",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#92998d"
+              }
+            ]
+          }
+        ]
+
+      };
+      var map = new google.maps.Map(document.getElementById("trace_map"), mapOptions);
+      const marker = new google.maps.Marker({
+        position: default_center,
+        // title: data.doc.id,
+        animation: google.maps.Animation.DROP,
+        // icon: icon_type,
+      });
+
+      marker.setMap(map)
+    }
+  </script>
+
+
+  
+</body>
+
+</html>
